@@ -1,31 +1,28 @@
-filename <- "C:/Users/erik_/Documents/erik documents/Programas/Inferencia_Bayesiana_Proyecto_Final/INFERENCIA.txt"
+install.packages("interp")
+
+library(fields)
+library("interp")
+filename <- "C:/Users/erik_/Documents/erik documents/Programas/Inferencia_Bayesiana_Proyecto_Final/INFERENCIA_TrueStandardOscillation.txt"
 
 # Read file
 df <- read.table(file = filename, header = TRUE ,sep = ' ',skip = 1 )
 head(df)
-
 # Cambio del nombre de headers
-names(df) <- c("delta","theta","m31","chi2")
+names(df) <- c("delta","m31","chi2")
 head(df)
 
 # Array of grid points for each parameter
 delta_array <- unique(df$delta)
-theta_array <- unique(df$theta)
 ldm_array <- unique(df$m31)
 
-chi2_data <- array(df$chi2, dim = c(length(ldm_array),length(theta_array),length(delta_array)))
-dim(chi2_data[,,1])
+chi2_data<- array(df$chi2, dim = c(length(ldm_array),length(delta_array)))
+dim(chi2_data)
 
-library(fields)
-image.plot(ldm_array,theta_array, chi2_data[,,100])
-image.plot(ldm_array,delta_array, chi2_data[,24,])
-image.plot(theta_array,delta_array, chi2_data[7,,])
+image.plot(ldm_array,delta_array, chi2_data)
 
+delta_array2 <- df$delta
+ldm_array2 <- df$m31
+chi2_array2 <- df$chi2
 
-
-# chi2_data[1,,]
-# 
-# chi2_data[,,1]
-# 
-# dim(chi2_data[201,,])
-# # lapply(list(df$delta), function(x) rle(x)$lengths)
+# Interpolation: xo and yo are the points where we want to get z
+interp(x = delta_array2,y = ldm_array2, z = chi2_array2, xo = 54.76, yo = 2.43567, input = "points", output = "points")
