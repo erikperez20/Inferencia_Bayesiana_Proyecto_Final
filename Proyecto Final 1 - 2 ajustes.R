@@ -246,8 +246,8 @@ Geweke.Diagnostic(sample.store2[burn:iter,1])
 Geweke.Diagnostic(sample.store2[burn:iter,2])
 
 ### Selección de modelos
-WAIC1_1 = -2*log(mean(sample.store[burn:iter,1]))+2*var(log(sample.store[burn:iter,1]))
-WAIC1_2 = -2*log(mean(sample.store[burn:iter,2]))+2*var(log(sample.store[burn:iter,2]))
+WAIC1_1 = log(1/mean(sample.store[burn:iter,1])^2)+2*var(log(sample.store[burn:iter,1]))
+WAIC1_2 = log(1/mean(sample.store[burn:iter,2])^2)+2*var(log(sample.store[burn:iter,2]))
 
-WAIC2_1 = -2*log(mean(sample.store2[burn:iter,1]))+2*var(log(sample.store2[burn:iter,1]))
-WAIC2_2 = -2*log(mean(sample.store2[burn:iter,2]))+2*var(log(sample.store2[burn:iter,2]))
+WAIC2_1 = log(1/mean(sample.store2[burn:iter,1])^2)+2*var(log(sample.store2[burn:iter,1]))
+WAIC2_2 = log(1/mean(sample.store2[burn:iter,2])^2)+2*var(log(sample.store2[burn:iter,2]))
